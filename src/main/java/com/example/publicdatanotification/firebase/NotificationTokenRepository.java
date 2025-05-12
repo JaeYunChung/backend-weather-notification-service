@@ -1,6 +1,6 @@
 package com.example.publicdatanotification.firebase;
 
-import com.example.publicdatanotification.open_api.member.Member;
+import com.example.publicdatanotification.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -15,8 +15,8 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 public class DustSettingEntity extends WeatherSettingEntity {
     @Enumerated(EnumType.STRING)
-    private DustStatus dustStatus;
+    private DustStatus pm10DustStatus;
 
     @Enumerated(EnumType.STRING)
-    private DustSizeCode dustSize;
+    private DustStatus pm25DustStatus;
 }

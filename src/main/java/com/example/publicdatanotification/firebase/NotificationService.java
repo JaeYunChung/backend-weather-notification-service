@@ -1,8 +1,9 @@
 package com.example.publicdatanotification.firebase;
 
 
-import com.example.publicdatanotification.open_api.member.Member;
-import com.example.publicdatanotification.open_api.member.repository.MemberRepository;
+import com.example.publicdatanotification.firebase.domain.NotificationSettingEntity;
+import com.example.publicdatanotification.member.Member;
+import com.example.publicdatanotification.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +12,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -23,6 +23,7 @@ public class NotificationService {
     private final NotificationTokenRepository notificationTokenRepository;
     private final RestTemplate restTemplate;
     private final String fcmUrl = "https://fcm.googleapis.com/fcm/send";
+    private final NotificationSettingRepository notificationSettingRepository;
 
     @Value("${firebase.secretKey}")
     private String secretKey;
@@ -58,6 +59,9 @@ public class NotificationService {
         else{
             log.error("푸시 알림 전송 실패");
         }
+    }
+    public void saveNotificationSetting(NotificationSettingEntity entity){
+        notificationSettingRepository.save(entity);
     }
 
 }

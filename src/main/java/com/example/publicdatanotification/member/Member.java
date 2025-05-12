@@ -1,4 +1,4 @@
-package com.example.publicdatanotification.open_api.member;
+package com.example.publicdatanotification.member;
 
 import com.example.publicdatanotification.open_api.domain.Zone;
 import jakarta.persistence.Entity;

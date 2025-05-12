@@ -2,8 +2,8 @@ package com.example.publicdatanotification.open_api;
 
 import com.example.publicdatanotification.open_api.domain.dust.domain.DustDataDto;
 import com.example.publicdatanotification.open_api.domain.dust.DustDataResponse;
-import com.example.publicdatanotification.open_api.domain.dust.domain.DustSizeCode;
 import com.example.publicdatanotification.open_api.domain.Zone;
+import com.example.publicdatanotification.open_api.domain.dust.domain.DustSizeCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

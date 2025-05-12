@@ -1,7 +1,7 @@
 package com.example.publicdatanotification.open_api.domain.temp;
 
 import com.example.publicdatanotification.open_api.domain.WeatherSettingEntity;
-import com.example.publicdatanotification.open_api.member.Member;
+import com.example.publicdatanotification.member.Member;
 import jakarta.persistence.Entity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;

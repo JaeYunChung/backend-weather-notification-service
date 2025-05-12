@@ -1,8 +1,8 @@
 package com.example.publicdatanotification.open_api;
 
 import com.example.publicdatanotification.open_api.domain.dust.domain.DustDataDto;
-import com.example.publicdatanotification.open_api.domain.dust.domain.DustSizeCode;
 import com.example.publicdatanotification.open_api.domain.Zone;
+import com.example.publicdatanotification.open_api.domain.dust.domain.DustSizeCode;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
