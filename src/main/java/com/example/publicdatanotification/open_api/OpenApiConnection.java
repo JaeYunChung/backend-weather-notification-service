@@ -4,6 +4,7 @@ import com.example.publicdatanotification.open_api.domain.dust.domain.DustDataDt
 import com.example.publicdatanotification.open_api.domain.dust.DustDataResponse;
 import com.example.publicdatanotification.open_api.domain.Zone;
 import com.example.publicdatanotification.open_api.domain.dust.domain.DustSizeCode;
+import com.example.publicdatanotification.websocket.LocationDataResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +23,17 @@ import java.util.List;
 @Slf4j
 public class OpenApiConnection {
     private final RestTemplate restTemplate;
-    private final String url = "http://apis.data.go.kr";
-    private final String path = "/B552584/ArpltnInforInqireSvc/getMinuDustFrcstDspth";
     private final String authKey = "GzBluLLKynops/NAPvytFXuX4vLGZwjFjZYpeUXECy0aDkLFt9ijeMlrT8v27OegZykWl8itqixMRFwxikOCMw==";
     private final String returnType = "json";
     private final String numOfRows = "1";
     private final String pageOfNo = "1";
+    public RainDataDto getRainData(LocationDataResponse locationData){
+        return null;
+    }
+
     public List<DustDataDto> getDustData(DustSizeCode code){
+        String url = "http://apis.data.go.kr";
+        String path = "/B552584/ArpltnInforInqireSvc/getMinuDustFrcstDspth";
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String nowDate = formatter.format(new Date());
         URI uri = UriComponentsBuilder
