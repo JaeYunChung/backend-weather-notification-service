@@ -41,8 +41,8 @@ public class WebSocketController extends TextWebSocketHandler {
         deviceSessions.putIfAbsent(deviceId, session);
         WebSocketSession targetSession = deviceSessions.get(deviceId);
 
-        String url = "";
-        String path = "";
+        String url = "http://localhost:8001";
+        String path = "/location";
         URI uri = UriComponentsBuilder
                 .fromUriString(url)
                 .path(path)
@@ -50,6 +50,7 @@ public class WebSocketController extends TextWebSocketHandler {
                 .queryParam("ny", dto.latitude())
                 .build().toUri();
         ResponseEntity<LocationDataResponse> response = restTemplate.getForEntity(uri, LocationDataResponse.class);
+        log.info("Received location data: " + response.getBody());
         RainDataDto rainDataDto = openApiConnection.getRainData(response.getBody());
         String returnValue = objectMapper.writeValueAsString(rainDataDto);
         if (targetSession != null && targetSession.isOpen()) {
