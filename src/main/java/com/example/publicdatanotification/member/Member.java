@@ -16,6 +16,8 @@ public class Member {
     private String name;
     private int age;
 
+    private boolean repetition;
+
     @Enumerated(EnumType.STRING)
     private Zone zone;
 }

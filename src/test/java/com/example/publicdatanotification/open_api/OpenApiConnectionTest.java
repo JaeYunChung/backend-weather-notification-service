@@ -3,6 +3,7 @@ package com.example.publicdatanotification.open_api;
 import com.example.publicdatanotification.open_api.domain.dust.domain.DustDataDto;
 import com.example.publicdatanotification.open_api.domain.Zone;
 import com.example.publicdatanotification.open_api.domain.dust.domain.DustSizeCode;
+import com.example.publicdatanotification.websocket.LocationDataResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,9 +16,14 @@ class OpenApiConnectionTest {
     OpenApiConnection connection;
 
     @Test
-    void testOpenApiConnection(){
+    void testDustOpenApiConnection(){
         List<DustDataDto> result = connection.getDustData(DustSizeCode.PM10);
         System.out.println("testOpenApiConnection 결과: " + result);
+    }
+
+    @Test
+    void testRainOpenApiConnection(){
+        connection.getRainData(new LocationDataResponse(1, 2));
     }
 
     @Test

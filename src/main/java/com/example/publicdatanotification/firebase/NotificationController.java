@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 public class NotificationController {
 
     private final NotificationService notificationService;
-    private final NotificationSettingRepository notificationSettingRepository;
     private final MemberService memberService;
     private final SettingService settingService;
 

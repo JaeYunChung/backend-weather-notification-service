@@ -18,6 +18,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -38,10 +39,22 @@ public class WebSocketController extends TextWebSocketHandler {
         LocationInfoDto dto = objectMapper.readValue(payload, LocationInfoDto.class);
 
         String deviceId = dto.deviceId();
-        deviceSessions.putIfAbsent(deviceId, session);
+        WebSocketSession oldSession = deviceSessions.get(deviceId);
+        if (oldSession != null && oldSession.isOpen() && !oldSession.getId().equals(session.getId())) {
+            try {
+                oldSession.close();
+                log.info("기존 세션({})을 닫았습니다. deviceId: {}", oldSession.getId(), deviceId);
+            } catch (Exception e) {
+                log.warn("기존 세션 닫기 실패: {}", e.getMessage());
+            }
+        }
+
+        // 항상 최신 세션으로 갱신
+        deviceSessions.put(deviceId, session);
+
         WebSocketSession targetSession = deviceSessions.get(deviceId);
 
-        String url = "http://localhost:8001";
+        String url = "http://localhost:8000";
         String path = "/location";
         URI uri = UriComponentsBuilder
                 .fromUriString(url)
@@ -51,8 +64,9 @@ public class WebSocketController extends TextWebSocketHandler {
                 .build().toUri();
         ResponseEntity<LocationDataResponse> response = restTemplate.getForEntity(uri, LocationDataResponse.class);
         log.info("Received location data: " + response.getBody());
-        RainDataDto rainDataDto = openApiConnection.getRainData(response.getBody());
+        List<RainDataDto> rainDataDto = openApiConnection.getRainData(response.getBody());
         String returnValue = objectMapper.writeValueAsString(rainDataDto);
+
         if (targetSession != null && targetSession.isOpen()) {
             targetSession.sendMessage(new TextMessage(returnValue));
         }
