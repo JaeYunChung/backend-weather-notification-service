@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter@Setter
-public class RainDataDto {
+public class WeatherDataDto {
     private String category;
     private String fcstTime;
     private String fcstValue;

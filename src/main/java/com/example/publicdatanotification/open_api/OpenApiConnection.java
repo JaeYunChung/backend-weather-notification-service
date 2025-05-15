@@ -27,7 +27,7 @@ public class OpenApiConnection {
     private final String returnType = "json";
     private final String numOfRows = "1";
     private final String pageOfNo = "1";
-    public List<RainDataDto> getRainData(LocationDataResponse locationData){
+    public List<WeatherDataDto> getWeatherData(LocationDataResponse locationData){
         String authkey = "GzBluLLKynops/NAPvytFXuX4vLGZwjFjZYpeUXECy0aDkLFt9ijeMlrT8v27OegZykWl8itqixMRFwxikOCMw==";
         String url = "https://apis.data.go.kr";
         String path = "/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst";
@@ -39,7 +39,7 @@ public class OpenApiConnection {
                 .path(path)
                 .queryParam("serviceKey", authkey)
                 .queryParam("pageNo", 1)
-                .queryParam("numOfRows", 6)
+                .queryParam("numOfRows", 60)
                 .queryParam("dataType", "JSON")
                 .queryParam("base_date", nowDate)
                 .queryParam("base_time", nowTime)
@@ -48,13 +48,14 @@ public class OpenApiConnection {
                 .build().toUri();
         log.info(nowTime);
         log.info(restTemplate.getForEntity(uri, String.class).getBody());
-        ResponseEntity<RainDataResponse> response = restTemplate.getForEntity(uri, RainDataResponse.class);
-        List<RainDataDto> data = response.getBody().getResponse().getBody().getItems().getItem();
-        for (RainDataDto e : data) {
+        ResponseEntity<WeatherDataResponse> response = restTemplate.getForEntity(uri, WeatherDataResponse.class);
+        List<WeatherDataDto> data = response.getBody().getResponse().getBody().getItems().getItem();
+        for (WeatherDataDto e : data) {
             log.info("출력값 : {}", e.toString());
         }
         return data;
     }
+
 
     public List<DustDataDto> getDustData(DustSizeCode code){
         String authKey = "GzBluLLKynops/NAPvytFXuX4vLGZwjFjZYpeUXECy0aDkLFt9ijeMlrT8v27OegZykWl8itqixMRFwxikOCMw==";

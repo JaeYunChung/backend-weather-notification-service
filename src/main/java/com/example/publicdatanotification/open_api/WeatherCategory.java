@@ -1,6 +1,6 @@
 package com.example.publicdatanotification.open_api;
 
-public enum Rain {
+public enum WeatherCategory {
     T1H,
     RN1,
     SKY,

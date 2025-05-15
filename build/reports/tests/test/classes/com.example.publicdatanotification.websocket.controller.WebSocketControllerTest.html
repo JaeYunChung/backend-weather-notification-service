@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - WebSocketControllerTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>WebSocketControllerTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.example.publicdatanotification.websocket.controller.html">com.example.publicdatanotification.websocket.controller</a> &gt; WebSocketControllerTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">1</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">1.331s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox failures" id="successRate">
+<div class="percent">0%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a href="#">Failed tests</a>
+</li>
+<li>
+<a href="#">Tests</a>
+</li>
+<li>
+<a href="#">Standard output</a>
+</li>
+</ul>
+<div class="tab">
+<h2>Failed tests</h2>
+<div class="test">
+<a name="testHandleText()"></a>
+<h3 class="failures">testHandleText()</h3>
+<span class="code">
+<pre>org.springframework.web.client.HttpServerErrorException$InternalServerError: 500 Internal Server Error on GET request for &quot;http://localhost:8000/location&quot;: &quot;Internal Server Error&quot;
+	at app//org.springframework.web.client.HttpServerErrorException.create(HttpServerErrorException.java:102)
+	at app//org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:189)
+	at app//org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:147)
+	at app//org.springframework.web.client.RestTemplate.handleResponse(RestTemplate.java:953)
+	at app//org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:902)
+	at app//org.springframework.web.client.RestTemplate.execute(RestTemplate.java:841)
+	at app//org.springframework.web.client.RestTemplate.getForEntity(RestTemplate.java:458)
+	at app//com.example.publicdatanotification.websocket.controller.WebSocketControllerTest.testHandleText(WebSocketControllerTest.java:28)
+	at java.base@17.0.15/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base@17.0.15/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base@17.0.15/java.util.ArrayList.forEach(ArrayList.java:1511)
+</pre>
+</span>
+</div>
+</div>
+<div class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="failures">testHandleText()</td>
+<td class="failures">1.331s</td>
+<td class="failures">failed</td>
+</tr>
+</table>
+</div>
+<div class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>20:46:22.599 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.publicdatanotification.websocket.controller.WebSocketControllerTest]: WebSocketControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+20:46:22.863 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.publicdatanotification.PublicDataNotificationApplication for test class com.example.publicdatanotification.websocket.controller.WebSocketControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.5)
+
+2025-05-15T20:46:23.625+09:00  INFO 17588 --- [public-data-notification] [    Test worker] c.e.p.w.c.WebSocketControllerTest        : Starting WebSocketControllerTest using Java 17.0.15 with PID 17588 (started by user in C:\Users\user\IdeaProjects\public-data-notification)
+2025-05-15T20:46:23.628+09:00  INFO 17588 --- [public-data-notification] [    Test worker] c.e.p.w.c.WebSocketControllerTest        : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2025-05-15T20:46:25.223+09:00  INFO 17588 --- [public-data-notification] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-15T20:46:25.386+09:00  INFO 17588 --- [public-data-notification] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 135 ms. Found 5 JPA repository interfaces.
+2025-05-15T20:46:26.573+09:00  INFO 17588 --- [public-data-notification] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-15T20:46:26.680+09:00  INFO 17588 --- [public-data-notification] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.13.Final
+2025-05-15T20:46:26.747+09:00  INFO 17588 --- [public-data-notification] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-05-15T20:46:27.544+09:00  INFO 17588 --- [public-data-notification] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-15T20:46:27.586+09:00  INFO 17588 --- [public-data-notification] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-05-15T20:46:27.859+09:00  INFO 17588 --- [public-data-notification] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:db user=SA
+2025-05-15T20:46:27.859+09:00  INFO 17588 --- [public-data-notification] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-05-15T20:46:27.893+09:00  WARN 17588 --- [public-data-notification] [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-15T20:46:27.972+09:00  INFO 17588 --- [public-data-notification] [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-15T20:46:29.805+09:00  INFO 17588 --- [public-data-notification] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-15T20:46:29.915+09:00  INFO 17588 --- [public-data-notification] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-15T20:46:31.687+09:00  INFO 17588 --- [public-data-notification] [    Test worker] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-05-15T20:46:35.157+09:00  WARN 17588 --- [public-data-notification] [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-15T20:46:36.977+09:00  INFO 17588 --- [public-data-notification] [    Test worker] c.e.p.w.c.WebSocketControllerTest        : Started WebSocketControllerTest in 13.816 seconds (process running for 15.922)
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="https://www.gradle.org">Gradle 8.13</a> at 2025. 5. 15. 오후 8:46:38</p>
+</div>
+</div>
+</body>
+</html>

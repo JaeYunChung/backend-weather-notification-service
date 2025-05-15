@@ -2,9 +2,11 @@ package com.example.publicdatanotification.websocket.controller;
 
 
 import com.example.publicdatanotification.open_api.OpenApiConnection;
-import com.example.publicdatanotification.open_api.RainDataDto;
+import com.example.publicdatanotification.open_api.WeatherDataDto;
+import com.example.publicdatanotification.open_api.WeatherCategory;
 import com.example.publicdatanotification.websocket.LocationDataResponse;
 import com.example.publicdatanotification.websocket.LocationInfoDto;
+import com.example.publicdatanotification.websocket.MainScreenInfoDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -64,12 +66,28 @@ public class WebSocketController extends TextWebSocketHandler {
                 .build().toUri();
         ResponseEntity<LocationDataResponse> response = restTemplate.getForEntity(uri, LocationDataResponse.class);
         log.info("Received location data: " + response.getBody());
-        List<RainDataDto> rainDataDto = openApiConnection.getRainData(response.getBody());
-        String returnValue = objectMapper.writeValueAsString(rainDataDto);
+        List<WeatherDataDto> weatherDataDto = openApiConnection.getWeatherData(response.getBody());
+        MainScreenInfoDto info = makeMainScreenInfo(weatherDataDto);
+        String returnValue = objectMapper.writeValueAsString(info);
 
         if (targetSession != null && targetSession.isOpen()) {
             targetSession.sendMessage(new TextMessage(returnValue));
         }
+    }
+
+    public MainScreenInfoDto makeMainScreenInfo(List<WeatherDataDto> data){
+        List<WeatherDataDto> rainDataList = data.stream()
+                .filter(it -> WeatherCategory.PTY.name().equals(it.getCategory()))
+                .filter(it -> !it.getFcstValue().equals("0"))
+                .toList();
+        MainScreenInfoDto dto;
+        if (rainDataList.isEmpty()){
+            dto = new MainScreenInfoDto("🔆", "맑음", "오늘은 우산 없는 날");
+        }
+        else{
+            dto = new MainScreenInfoDto("☔", "비", "우산을 챙겨주세요");
+        }
+        return dto;
     }
 
     @Override

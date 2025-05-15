@@ -23,7 +23,7 @@ class OpenApiConnectionTest {
 
     @Test
     void testRainOpenApiConnection(){
-        connection.getRainData(new LocationDataResponse(1, 2));
+        connection.getWeatherData(new LocationDataResponse(1, 2));
     }
 
     @Test

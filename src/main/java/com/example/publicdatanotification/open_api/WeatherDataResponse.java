@@ -6,7 +6,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Getter@Setter
-public class RainDataResponse{
+public class WeatherDataResponse {
     private Response response;
     @Getter@Setter
     public static class Response{
@@ -16,7 +16,7 @@ public class RainDataResponse{
             private Item items;
             @Getter@Setter
             public static class Item{
-                List<RainDataDto> item;
+                List<WeatherDataDto> item;
             }
         }
     }
