@@ -1,25 +1,23 @@
 package com.example.publicdatanotification.websocket.controller;
 
 
+import com.example.publicdatanotification.member.repository.MemberRepository;
 import com.example.publicdatanotification.open_api.OpenApiConnection;
 import com.example.publicdatanotification.open_api.WeatherDataDto;
-import com.example.publicdatanotification.open_api.WeatherCategory;
-import com.example.publicdatanotification.websocket.LocationDataResponse;
+import com.example.publicdatanotification.open_api.domain.temp.TempAndRainService;
+import com.example.publicdatanotification.translate.MapInfo;
 import com.example.publicdatanotification.websocket.LocationInfoDto;
 import com.example.publicdatanotification.websocket.MainScreenInfoDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -31,8 +29,11 @@ public class WebSocketController extends TextWebSocketHandler {
     //기기ID → 세션
     private final Map<String, WebSocketSession> deviceSessions = new ConcurrentHashMap<>();
     private final ObjectMapper objectMapper;
-    private final RestTemplate restTemplate;
     private final OpenApiConnection openApiConnection;
+    private final MemberRepository memberRepository;
+    private final TempAndRainService tempAndRainService;
+    private final MapInfo mapInfo;
+
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
@@ -41,6 +42,10 @@ public class WebSocketController extends TextWebSocketHandler {
         LocationInfoDto dto = objectMapper.readValue(payload, LocationInfoDto.class);
 
         String deviceId = dto.deviceId();
+        float longitude = (float) dto.longitude();
+        float latitude = (float) dto.latitude();
+
+
         WebSocketSession oldSession = deviceSessions.get(deviceId);
         if (oldSession != null && oldSession.isOpen() && !oldSession.getId().equals(session.getId())) {
             try {
@@ -56,17 +61,24 @@ public class WebSocketController extends TextWebSocketHandler {
 
         WebSocketSession targetSession = deviceSessions.get(deviceId);
 
-        String url = "http://localhost:8000";
-        String path = "/location";
-        URI uri = UriComponentsBuilder
-                .fromUriString(url)
-                .path(path)
-                .queryParam("nx", dto.longitude())
-                .queryParam("ny", dto.latitude())
-                .build().toUri();
-        ResponseEntity<LocationDataResponse> response = restTemplate.getForEntity(uri, LocationDataResponse.class);
-        log.info("Received location data: " + response.getBody());
-        List<WeatherDataDto> weatherDataDto = openApiConnection.getWeatherData(response.getBody());
+
+        int[] result = mapInfo.transSlatToGrid(longitude, latitude);
+
+        Calendar calendar = Calendar.getInstance();
+        if(calendar.get(Calendar.HOUR_OF_DAY) == 9){
+            memberRepository.updateMemberLocation(dto.memberId(), result[0], result[1]);
+        }
+
+        List<WeatherDataDto> weatherDataDto = openApiConnection.getWeatherDataByTransLoc(result[0], result[1]);
+
+
+//        for (int i = 0 ; i < 10; i++){
+//            log.info("check");
+//            tempAndRainService.sendTempNotification(getTempInfo(weatherDataDto));
+//            if (!getRainInfo(weatherDataDto).isEmpty()) tempAndRainService.sendRainNotification();
+//            Thread.sleep(1000);
+//        }
+
         MainScreenInfoDto info = makeMainScreenInfo(weatherDataDto);
         String returnValue = objectMapper.writeValueAsString(info);
 
@@ -75,11 +87,9 @@ public class WebSocketController extends TextWebSocketHandler {
         }
     }
 
+
     public MainScreenInfoDto makeMainScreenInfo(List<WeatherDataDto> data){
-        List<WeatherDataDto> rainDataList = data.stream()
-                .filter(it -> WeatherCategory.PTY.name().equals(it.getCategory()))
-                .filter(it -> !it.getFcstValue().equals("0"))
-                .toList();
+        List<WeatherDataDto> rainDataList = tempAndRainService.getRainInfo(data);
         MainScreenInfoDto dto;
         if (rainDataList.isEmpty()){
             dto = new MainScreenInfoDto("🔆", "맑음", "오늘은 우산 없는 날");

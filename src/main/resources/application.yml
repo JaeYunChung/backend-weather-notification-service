@@ -12,6 +12,3 @@ spring:
       ddl-auto: create
     database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true
-
-firebase:
-  secretKey: BB7QVIyQzLlVy5u6Q0OtoSRAEzNY7ihuSSEuxs9EjXmSrAs6UjWdDRDthm55kPl22dcB4utr5gGNhXV2lS5H8Oo

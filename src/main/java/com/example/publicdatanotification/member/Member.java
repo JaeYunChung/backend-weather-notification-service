@@ -18,6 +18,9 @@ public class Member {
 
     private boolean repetition;
 
+    private int longitude;
+    private int latitude;
+
     @Enumerated(EnumType.STRING)
     private Zone zone;
 }

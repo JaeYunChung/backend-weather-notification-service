@@ -11,8 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/notification")
+@RequestMapping()
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class NotificationController {
 
     private final NotificationService notificationService;
@@ -20,22 +21,22 @@ public class NotificationController {
     private final SettingService settingService;
 
     @PostMapping("/new/notification")
-    public ResponseEntity<Void> saveToken(@RequestBody String token, @RequestParam String memberId) {
-        notificationService.saveDeviceToken(memberId, token);
+    public ResponseEntity<Void> saveToken(@RequestBody NotificationTokenDto dto, @RequestParam String memberId) {
+        notificationService.saveDeviceToken(memberId, dto.token());
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/setting/notification")
-    public ResponseEntity<?> saveNotificationSetting(@RequestBody NotificationSettingRequestDto dto){
-        Member member = memberService.findMemberById(dto.memberId());
-        String id = settingService.getRandomId();
-        NotificationSettingEntity entity = NotificationSettingEntity.builder()
-                .id(id)
-                .member(member)
-                .weather(Weather.valueOf(dto.weather()))
-                .build();
-        notificationService.saveNotificationSetting(entity);
-        return ResponseEntity.ok().build();
-    }
+//    @PostMapping("/setting/notification")
+//    public ResponseEntity<?> saveNotificationSetting(@RequestBody NotificationSettingRequestDto dto){
+//        Member member = memberService.findMemberById(dto.memberId());
+//        String id = settingService.getRandomId();
+//        NotificationSettingEntity entity = NotificationSettingEntity.builder()
+//                .id(id)
+//                .member(member)
+//                .weather(Weather.valueOf(dto.weather()))
+//                .build();
+//        notificationService.saveNotificationSetting(entity);
+//        return ResponseEntity.ok().build();
+//    }
 }
 

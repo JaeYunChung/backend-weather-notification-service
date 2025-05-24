@@ -3,7 +3,6 @@ package com.example.publicdatanotification.open_api;
 import com.example.publicdatanotification.open_api.domain.dust.domain.DustDataDto;
 import com.example.publicdatanotification.open_api.domain.Zone;
 import com.example.publicdatanotification.open_api.domain.dust.domain.DustSizeCode;
-import com.example.publicdatanotification.websocket.LocationDataResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +22,7 @@ class OpenApiConnectionTest {
 
     @Test
     void testRainOpenApiConnection(){
-        connection.getWeatherData(new LocationDataResponse(1, 2));
+        connection.getWeatherDataByTransLoc(127, 55);
     }
 
     @Test

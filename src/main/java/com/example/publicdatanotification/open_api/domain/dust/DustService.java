@@ -10,13 +10,16 @@ import com.example.publicdatanotification.open_api.domain.dust.domain.DustSizeCo
 import com.example.publicdatanotification.open_api.domain.dust.domain.DustStatus;
 import com.example.publicdatanotification.member.Member;
 import com.example.publicdatanotification.member.repository.MemberRepository;
+import com.google.firebase.messaging.FirebaseMessagingException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class DustService {
@@ -27,14 +30,16 @@ public class DustService {
     private final NotificationService notificationService;
     private final NotificationTokenRepository tokenRepository;
 
-    @Scheduled(cron = "0 0 9 * * *")
-    public void sendNotification(){
+   //@Scheduled(cron = "0 0 9 * * *")
+    @Scheduled(fixedRate = 5000)
+    public void sendNotification() throws FirebaseMessagingException {
         List<Member> members = memberRepository.findAllSettingWeatherNotification(Weather.DUST);
         for (Member member : members){
             String message1 = isOverSettingAndReturnMessage(member, DustSizeCode.PM10);
             String message2 = isOverSettingAndReturnMessage(member, DustSizeCode.PM25);
             NotificationToken token = tokenRepository.findByMember(member).orElseThrow(() -> new IllegalArgumentException("해당 토큰이 없습니다."));
             if (message1 != null || message2 != null) notificationService.send(token.getToken(), "마스크 착용!", message1 + "/n" + message2);
+            log.info("마스크 착용 메시지를 보냈습니다.");
         }
     }
 

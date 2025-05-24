@@ -11,6 +11,10 @@ import java.util.List;
 public interface MemberRepository extends JpaRepository<Member, String> {
     @Modifying
     @Query("select m from Member m where m in (select n.member " +
-            "from NotificationSettingEntity n where n.weather = :weather)")
+            "from CustomSettingEntity n where n.weather = :weather and n.isSetting is true)")
     List<Member> findAllSettingWeatherNotification(Weather weather);
+
+    @Modifying
+    @Query("update Member m set m.longitude=:nx, m.latitude=:ny where m.id=:id")
+    void updateMemberLocation(String id, int longitude, int latitude);
 }

@@ -4,7 +4,6 @@ import com.example.publicdatanotification.open_api.domain.dust.domain.DustDataDt
 import com.example.publicdatanotification.open_api.domain.dust.DustDataResponse;
 import com.example.publicdatanotification.open_api.domain.Zone;
 import com.example.publicdatanotification.open_api.domain.dust.domain.DustSizeCode;
-import com.example.publicdatanotification.websocket.LocationDataResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +26,7 @@ public class OpenApiConnection {
     private final String returnType = "json";
     private final String numOfRows = "1";
     private final String pageOfNo = "1";
-    public List<WeatherDataDto> getWeatherData(LocationDataResponse locationData){
+    public List<WeatherDataDto> getWeatherDataByTransLoc(int longitude, int latitude){
         String authkey = "GzBluLLKynops/NAPvytFXuX4vLGZwjFjZYpeUXECy0aDkLFt9ijeMlrT8v27OegZykWl8itqixMRFwxikOCMw==";
         String url = "https://apis.data.go.kr";
         String path = "/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst";
@@ -43,16 +42,16 @@ public class OpenApiConnection {
                 .queryParam("dataType", "JSON")
                 .queryParam("base_date", nowDate)
                 .queryParam("base_time", nowTime)
-                .queryParam("nx", "60")
-                .queryParam("ny", "127")
+                .queryParam("nx", longitude)
+                .queryParam("ny", latitude)
                 .build().toUri();
         log.info(nowTime);
         log.info(restTemplate.getForEntity(uri, String.class).getBody());
         ResponseEntity<WeatherDataResponse> response = restTemplate.getForEntity(uri, WeatherDataResponse.class);
         List<WeatherDataDto> data = response.getBody().getResponse().getBody().getItems().getItem();
-        for (WeatherDataDto e : data) {
-            log.info("출력값 : {}", e.toString());
-        }
+//        for (WeatherDataDto e : data) {
+//            log.info("출력값 : {}", e.toString());
+//        }
         return data;
     }
 
@@ -77,6 +76,23 @@ public class OpenApiConnection {
         List<DustDataDto> result = response.getBody().getResponse().getBody().getItems();
         return result;
     }
+
+//    public List<WeatherDataDto> getWeatherDataByLocation(LocationInfoDto dto){
+//        String url = "http://localhost:8000";
+//        String path = "/location";
+//        URI uri = UriComponentsBuilder
+//                .fromUriString(url)
+//                .path(path)
+//                .queryParam("nx", dto.longitude())
+//                .queryParam("ny", dto.latitude())
+//                .build().toUri();
+//        ResponseEntity<LocationDataResponse> response = restTemplate.getForEntity(uri, LocationDataResponse.class);
+//        if (response.getBody() == null){
+//            return null;
+//        }
+//        //log.info("Received location data: " + response.getBody());
+//        return  getWeatherDataByTransLoc(response.getBody());
+//    }
 
     public String getDustStatusForZone(DustSizeCode sizeCode, Zone zone){
         String dustInfo = getDustData(sizeCode).get(0).getInformGrade();
