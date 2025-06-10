@@ -16,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 public class WeatherSettingEntity {
 
     @Id
-    private String id;
+    protected String id;
 
     @OneToOne
     @JoinColumn(name = "member_id")

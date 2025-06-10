@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.569s</div>
+<div class="counter">0.050s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,7 +79,7 @@
 </thead>
 <tr>
 <td class="success">testTransSlatToGrid()</td>
-<td class="success">0.569s</td>
+<td class="success">0.050s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -87,43 +87,8 @@
 <div class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>16:07:30.191 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.publicdatanotification.translate.MapInfoTest]: MapInfoTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-16:07:30.377 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.publicdatanotification.PublicDataNotificationApplication for test class com.example.publicdatanotification.translate.MapInfoTest
-
-  .   ____          _            __ _ _
- /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
- \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-  '  |____| .__|_| |_|_| |_\__, | / / / /
- =========|_|==============|___/=/_/_/_/
-
- :: Spring Boot ::                (v3.4.5)
-
-2025-05-24T16:07:31.193+09:00  INFO 6948 --- [public-data-notification] [    Test worker] c.e.p.translate.MapInfoTest              : Starting MapInfoTest using Java 17.0.15 with PID 6948 (started by user in C:\Users\user\IdeaProjects\public-data-notification)
-2025-05-24T16:07:31.193+09:00  INFO 6948 --- [public-data-notification] [    Test worker] c.e.p.translate.MapInfoTest              : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2025-05-24T16:07:32.405+09:00  INFO 6948 --- [public-data-notification] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-05-24T16:07:32.511+09:00  INFO 6948 --- [public-data-notification] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 89 ms. Found 5 JPA repository interfaces.
-2025-05-24T16:07:33.159+09:00  INFO 6948 --- [public-data-notification] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-05-24T16:07:33.254+09:00  INFO 6948 --- [public-data-notification] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.13.Final
-2025-05-24T16:07:33.301+09:00  INFO 6948 --- [public-data-notification] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-05-24T16:07:33.748+09:00  INFO 6948 --- [public-data-notification] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-05-24T16:07:33.779+09:00  INFO 6948 --- [public-data-notification] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-05-24T16:07:34.016+09:00  INFO 6948 --- [public-data-notification] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:db user=SA
-2025-05-24T16:07:34.016+09:00  INFO 6948 --- [public-data-notification] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-05-24T16:07:34.064+09:00  WARN 6948 --- [public-data-notification] [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-05-24T16:07:34.095+09:00  INFO 6948 --- [public-data-notification] [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 2.3.232
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-05-24T16:07:35.125+09:00  INFO 6948 --- [public-data-notification] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-05-24T16:07:35.200+09:00  INFO 6948 --- [public-data-notification] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-05-24T16:07:36.164+09:00  INFO 6948 --- [public-data-notification] [    Test worker] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-05-24T16:07:38.051+09:00  WARN 6948 --- [public-data-notification] [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-05-24T16:07:39.066+09:00  INFO 6948 --- [public-data-notification] [    Test worker] c.e.p.translate.MapInfoTest              : Started MapInfoTest in 8.438 seconds (process running for 10.158)
+<pre>2025-06-08T20:06:31.031+09:00  INFO 7812 --- [public-data-notification] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.publicdatanotification.translate.MapInfoTest]: MapInfoTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-06-08T20:06:31.060+09:00  INFO 7812 --- [public-data-notification] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.publicdatanotification.PublicDataNotificationApplication for test class com.example.publicdatanotification.translate.MapInfoTest
 </pre>
 </span>
 </div>
@@ -135,7 +100,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 8.13</a> at 2025. 5. 24. 오후 4:07:40</p>
+<a href="https://www.gradle.org">Gradle 8.14</a> at 2025. 6. 8. 오후 8:06:31</p>
 </div>
 </div>
 </body>

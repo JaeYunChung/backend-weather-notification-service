@@ -5,13 +5,14 @@ import com.example.publicdatanotification.open_api.domain.Weather;
 import com.example.publicdatanotification.open_api.domain.custom.CustomSettingEntity;
 import com.example.publicdatanotification.open_api.domain.custom.CustomSettingRequestDto;
 import com.example.publicdatanotification.open_api.domain.custom.CustomSettingResponseDto;
-import com.example.publicdatanotification.open_api.domain.dust.DustSettingRepository;
 import com.example.publicdatanotification.open_api.domain.dust.domain.DustSettingEntity;
 import com.example.publicdatanotification.open_api.domain.dust.domain.DustSettingRequestDto;
 import com.example.publicdatanotification.open_api.domain.dust.domain.DustStatus;
 import com.example.publicdatanotification.open_api.domain.temp.TempSettingEntity;
 import com.example.publicdatanotification.open_api.domain.temp.TempSettingRequestDto;
 import com.example.publicdatanotification.member.Member;
+import com.example.publicdatanotification.time.TimeSettingEntity;
+import com.example.publicdatanotification.time.TimeSettingRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,28 @@ public class SettingRequestController {
 
     private final MemberService memberService;
     private final SettingService settingService;
+
+    @PostMapping("/time/setting")
+    public ResponseEntity<?> saveTimeSetting(@RequestBody TimeSettingRequestDto dto){
+        Member member = memberService.findMemberById(dto.memberId());
+        TimeSettingEntity time = TimeSettingEntity.builder()
+                .member(member)
+                .hour(dto.hour())
+                .minute(dto.minute())
+                .build();
+        settingService.saveTimeSetting(time);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body("정상적으로 시간이 저장되었습니다.");
+    }
+
+    @PutMapping("/{memberId}/repetition")
+    public ResponseEntity<?> saveRepetitionSetting(@PathVariable String memberId){
+        Member member = memberService.findMemberById(memberId);
+        member.setRepetition(!member.isRepetition());
+        memberService.saveChangedRepetitionStatus(member);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body("정상적으로 설정이 바뀌었습니다.");
+    }
 
 
     @PostMapping("/temp/setting/")
@@ -50,6 +73,7 @@ public class SettingRequestController {
     @PostMapping("/dust/setting/")
     public ResponseEntity<?> saveDustSettingInfo(@RequestBody DustSettingRequestDto dto){
         Member member = memberService.findMemberById(dto.memberId());
+
         String id = UUID.randomUUID().toString();
         DustSettingEntity entity = DustSettingEntity.builder()
                 .id(id)
@@ -67,6 +91,7 @@ public class SettingRequestController {
     public ResponseEntity<?> saveCustomSettingInfo(@RequestBody CustomSettingRequestDto dto){
         Member member = memberService.findMemberById(dto.memberId());
         boolean settingValue = dto.setting().equals("true");
+
         String id = UUID.randomUUID().toString();
         CustomSettingEntity entity = CustomSettingEntity.builder()
                 .id(id)

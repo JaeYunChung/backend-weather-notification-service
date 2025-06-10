@@ -13,10 +13,8 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TempSettingEntity extends WeatherSettingEntity {
-    public TempSettingEntity(String id, Member member, float minTemp, float maxTemp){
-        super(id, member);
-        this.minTemp = minTemp;
-        this.maxTemp = maxTemp;
+    public void setId(String id){
+        super.id = id;
     }
     private float minTemp;
     private float maxTemp;

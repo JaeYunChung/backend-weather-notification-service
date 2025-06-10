@@ -19,4 +19,8 @@ public class DustSettingEntity extends WeatherSettingEntity {
 
     @Enumerated(EnumType.STRING)
     private DustStatus pm25DustStatus;
+
+    public void setId(String id){
+        super.id = id;
+    }
 }

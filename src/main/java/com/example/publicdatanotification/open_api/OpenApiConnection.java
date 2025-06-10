@@ -6,17 +6,14 @@ import com.example.publicdatanotification.open_api.domain.Zone;
 import com.example.publicdatanotification.open_api.domain.dust.domain.DustSizeCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -27,27 +24,31 @@ public class OpenApiConnection {
     private final String numOfRows = "1";
     private final String pageOfNo = "1";
     public List<WeatherDataDto> getWeatherDataByTransLoc(int longitude, int latitude){
+        Map<String, String> headers = new HashMap<>();
+        headers.put(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+        HttpEntity<Void> entity = new HttpEntity(headers);
         String authkey = "GzBluLLKynops/NAPvytFXuX4vLGZwjFjZYpeUXECy0aDkLFt9ijeMlrT8v27OegZykWl8itqixMRFwxikOCMw==";
         String url = "https://apis.data.go.kr";
         String path = "/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst";
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
         String nowDate = formatter.format(new Date());
         String nowTime = getBaseTime();
+        log.info("위도 : {}, 경도: {}", String.valueOf(longitude), String.valueOf(latitude));
         URI uri = UriComponentsBuilder
                 .fromUriString(url)
                 .path(path)
                 .queryParam("serviceKey", authkey)
-                .queryParam("pageNo", 1)
-                .queryParam("numOfRows", 60)
+                .queryParam("pageNo", pageOfNo)
+                .queryParam("numOfRows", Collections.singleton(60))
                 .queryParam("dataType", "JSON")
                 .queryParam("base_date", nowDate)
                 .queryParam("base_time", nowTime)
-                .queryParam("nx", longitude)
-                .queryParam("ny", latitude)
+                .queryParam("nx", Collections.singleton(55))
+                .queryParam("ny", Collections.singleton(127))
                 .build().toUri();
         log.info(nowTime);
         log.info(restTemplate.getForEntity(uri, String.class).getBody());
-        ResponseEntity<WeatherDataResponse> response = restTemplate.getForEntity(uri, WeatherDataResponse.class);
+        ResponseEntity<WeatherDataResponse> response = restTemplate.exchange(uri, HttpMethod.GET, entity, WeatherDataResponse.class);
         List<WeatherDataDto> data = response.getBody().getResponse().getBody().getItems().getItem();
 //        for (WeatherDataDto e : data) {
 //            log.info("출력값 : {}", e.toString());
@@ -57,6 +58,9 @@ public class OpenApiConnection {
 
 
     public List<DustDataDto> getDustData(DustSizeCode code){
+        Map<String, String> headers = new HashMap<>();
+        headers.put(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+        HttpEntity<Void> entity = new HttpEntity(headers);
         String authKey = "GzBluLLKynops/NAPvytFXuX4vLGZwjFjZYpeUXECy0aDkLFt9ijeMlrT8v27OegZykWl8itqixMRFwxikOCMw==";
         String url = "http://apis.data.go.kr";
         String path = "/B552584/ArpltnInforInqireSvc/getMinuDustFrcstDspth";
@@ -72,7 +76,7 @@ public class OpenApiConnection {
                 .queryParam("searchDate", nowDate)
                 .queryParam("InformCode", code.toString())
                 .build().toUri();
-        ResponseEntity<DustDataResponse> response = restTemplate.getForEntity(uri, DustDataResponse.class);
+        ResponseEntity<DustDataResponse> response = restTemplate.exchange(uri, HttpMethod.GET, entity, DustDataResponse.class);
         List<DustDataDto> result = response.getBody().getResponse().getBody().getItems();
         return result;
     }

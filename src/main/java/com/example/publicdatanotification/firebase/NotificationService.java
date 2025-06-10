@@ -1,7 +1,5 @@
 package com.example.publicdatanotification.firebase;
 
-
-import com.example.publicdatanotification.firebase.domain.NotificationSettingEntity;
 import com.example.publicdatanotification.member.Member;
 import com.example.publicdatanotification.member.repository.MemberRepository;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -10,13 +8,10 @@ import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -26,12 +21,16 @@ public class NotificationService {
 
     private final MemberRepository memberRepository;
     private final NotificationTokenRepository notificationTokenRepository;
-    //private final NotificationSettingRepository notificationSettingRepository;
 
+    @Transactional
     public void saveDeviceToken(String memberId, String token){
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 유저가 없습니다."));
         String tokenId = UUID.randomUUID().toString();
+        Optional<NotificationToken> tokenEntity = notificationTokenRepository.findByMember(member);
+        if(tokenEntity.isPresent()){
+            tokenId = tokenEntity.get().getId();
+        }
         log.info(token);
         NotificationToken notificationToken = NotificationToken.builder()
                 .id(tokenId)

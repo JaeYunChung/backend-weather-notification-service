@@ -1,11 +1,8 @@
 package com.example.publicdatanotification.firebase;
 
-import com.example.publicdatanotification.firebase.domain.NotificationSettingEntity;
-import com.example.publicdatanotification.firebase.domain.NotificationSettingRequestDto;
-import com.example.publicdatanotification.member.Member;
+
 import com.example.publicdatanotification.member.MemberService;
 import com.example.publicdatanotification.open_api.SettingService;
-import com.example.publicdatanotification.open_api.domain.Weather;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 public class NotificationController {
 
     private final NotificationService notificationService;
-    private final MemberService memberService;
-    private final SettingService settingService;
 
     @PostMapping("/new/notification")
     public ResponseEntity<Void> saveToken(@RequestBody NotificationTokenDto dto, @RequestParam String memberId) {

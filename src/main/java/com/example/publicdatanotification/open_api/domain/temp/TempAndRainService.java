@@ -9,13 +9,21 @@ import com.example.publicdatanotification.open_api.OpenApiConnection;
 import com.example.publicdatanotification.open_api.WeatherCategory;
 import com.example.publicdatanotification.open_api.WeatherDataDto;
 import com.example.publicdatanotification.open_api.domain.Weather;
-import com.example.publicdatanotification.translate.MapInfo;
+import com.example.publicdatanotification.open_api.domain.custom.CustomSettingRepository;
+import com.example.publicdatanotification.open_api.domain.dust.DustSettingRepository;
+import com.example.publicdatanotification.open_api.domain.dust.domain.DustSettingEntity;
+import com.example.publicdatanotification.open_api.domain.dust.domain.DustSizeCode;
+import com.example.publicdatanotification.open_api.domain.dust.domain.DustStatus;
+import com.example.publicdatanotification.time.TimeSettingEntity;
+import com.example.publicdatanotification.time.TimeSettingEntityRepository;
+import com.example.publicdatanotification.time.TimeSettingService;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,30 +31,62 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class TempAndRainService {
-
     private final NotificationService notificationService;
     private final MemberRepository memberRepository;
     private final TempSettingRepository tempSettingRepository;
     private final NotificationTokenRepository notificationTokenRepository;
     private final OpenApiConnection openApiConnection;
-    private final MapInfo mapInfo;
+    private final TimeSettingEntityRepository timeSettingEntityRepository;
+    private final TimeSettingService timeSettingService;
+    private final CustomSettingRepository customSettingRepository;
+    private final DustSettingRepository dustSettingRepository;
+    private final OpenApiConnection connection;
 
 
     @Scheduled(fixedRate = 5000)
     public void sendNotification() throws FirebaseMessagingException {
-        List<Member> tempMembers = memberRepository.findAllSettingWeatherNotification(Weather.TEMP);
-        for (Member member : tempMembers) {
-            List<WeatherDataDto> responses = openApiConnection.getWeatherDataByTransLoc(member.getLongitude(), member.getLatitude());
-            sendTempNotification(getTempInfo(responses), member);
-        }
-        List<Member> rainMembers = memberRepository.findAllSettingWeatherNotification(Weather.RAIN);
-        for (Member member : rainMembers){
-            List<WeatherDataDto> responses = openApiConnection.getWeatherDataByTransLoc(member.getLongitude(), member.getLatitude());
-            if(getRainInfo(responses).isEmpty()) sendRainNotification(member);
+        List<Member> Members = memberRepository.findAll();
+        LocalTime now = LocalTime.now();
+        for (Member member : Members) {
+            List<TimeSettingEntity> timeSettings = timeSettingEntityRepository.findAllByMember(member);
+            TimeSettingEntity temp = null;
+            boolean flag = false;
+            for (TimeSettingEntity entity : timeSettings){
+                if (timeSettingService.isAfter(entity, now)){
+                    flag = true;
+                    temp = entity;
+                    break;
+                }
+            }
+            if(flag) {
+                List<WeatherDataDto> responses = openApiConnection.getWeatherDataByTransLoc(member.getLongitude(), member.getLatitude());
+                if(customSettingRepository.existsByMemberAndWeather(member, Weather.TEMP)) {
+                    sendTempNotification(getTempInfo(responses), member);
+                }
+                if (customSettingRepository.existsByMemberAndWeather(member, Weather.RAIN)){
+                    if (!getRainInfo(responses).isEmpty()) sendRainNotification(member);
+                }
+                if (customSettingRepository.existsByMemberAndWeather(member, Weather.DUST)){
+                    String message1 = isOverSettingAndReturnMessage(member, DustSizeCode.PM10);
+                    String message2 = isOverSettingAndReturnMessage(member, DustSizeCode.PM25);
+                    sendDustNotification(member, message1, message2);
+                }
+                if (!member.isRepetition()) temp.setComplete(true);
+                else{
+                    if (temp.getMinute() + 20 < 60){
+                        temp.setMinute(temp.getMinute() + 20);
+                    }
+                    else{
+                        temp.setHour(temp.getHour() + 1);
+                        temp.setMinute(temp.getMinute() - 40);
+                    }
+                };
+                timeSettingEntityRepository.save(temp);
+            }
         }
     }
     public void sendTempNotification(List<WeatherDataDto> temps, Member member)throws FirebaseMessagingException {
-        Optional<TempSettingEntity> setting = tempSettingRepository.findAllByMember(member);
+        Optional<TempSettingEntity> setting = tempSettingRepository.findByMember(member);
         Optional<NotificationToken> token = notificationTokenRepository.findByMember(member);
         if (setting.isEmpty()) return;
         if (token.isEmpty()) return;
@@ -69,6 +109,11 @@ public class TempAndRainService {
         notificationService.send(token.get().getToken(), "비가 옵니다.", "우산을 챙겨주세요");
         log.info("우산 메시지를 보냈습니다.");
     }
+    public void sendDustNotification(Member member, String message1, String message2) throws FirebaseMessagingException {
+        NotificationToken token = notificationTokenRepository.findByMember(member).orElseThrow(() -> new IllegalArgumentException("해당 토큰이 없습니다."));
+        if (message1 != null || message2 != null) notificationService.send(token.getToken(), "마스크 착용!", message1 + "/n" + message2);
+        log.info("마스크 착용 메시지를 보냈습니다.");
+    }
 
     public List<WeatherDataDto> getTempInfo(List<WeatherDataDto> data){
         return data.stream()
@@ -83,4 +128,22 @@ public class TempAndRainService {
                 .toList();
     }
 
+    public String isOverSettingAndReturnMessage(Member member, DustSizeCode size){
+        Optional<DustSettingEntity> dustSettingEntity = dustSettingRepository.findByMember(member);
+        if (dustSettingEntity.isEmpty()) {
+            return null;
+        }
+        String measurement = connection.getDustStatusForZone(size, member.getZone());
+        if (size == DustSizeCode.PM10 && compareStatus(DustStatus.getLabel(measurement), dustSettingEntity.get().getPm10DustStatus()))
+            return connection.getDustInformOverall(DustSizeCode.PM10);
+        else if (size == DustSizeCode.PM25 && compareStatus(DustStatus.getLabel(measurement), dustSettingEntity.get().getPm10DustStatus()))
+            return connection.getDustInformOverall(DustSizeCode.PM25);
+        else return null;
+    }
+
+    public boolean compareStatus(DustStatus measurement, DustStatus settingValue){
+        if (settingValue == DustStatus.GOOD) return true;
+        else if (settingValue == DustStatus.Common) return measurement == DustStatus.Common || measurement == DustStatus.Worse;
+        else return measurement == DustStatus.Worse;
+    }
 }
