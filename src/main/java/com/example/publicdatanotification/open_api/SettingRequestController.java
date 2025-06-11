@@ -48,6 +48,7 @@ public class SettingRequestController {
     public ResponseEntity<?> saveRepetitionSetting(@PathVariable String memberId){
         Member member = memberService.findMemberById(memberId);
         member.setRepetition(!member.isRepetition());
+        log.info("반복여부가 바뀌었습니다.");
         memberService.saveChangedRepetitionStatus(member);
         return ResponseEntity.status(HttpStatus.OK)
                 .body("정상적으로 설정이 바뀌었습니다.");

@@ -49,16 +49,20 @@ public class TempAndRainService {
         LocalTime now = LocalTime.now();
         for (Member member : Members) {
             List<TimeSettingEntity> timeSettings = timeSettingEntityRepository.findAllByMember(member);
+            log.info("계속 실행중:");
             TimeSettingEntity temp = null;
             boolean flag = false;
             for (TimeSettingEntity entity : timeSettings){
-                if (timeSettingService.isAfter(entity, now)){
+                boolean repeat = timeSettingService.isAfter(entity, now);
+                log.info("계속 실행여부 : {}",repeat);
+                if (repeat){
                     flag = true;
                     temp = entity;
                     break;
                 }
             }
             if(flag) {
+                log.info("실행중 시간 설정 디버깅");
                 List<WeatherDataDto> responses = openApiConnection.getWeatherDataByTransLoc(member.getLongitude(), member.getLatitude());
                 if(customSettingRepository.existsByMemberAndWeather(member, Weather.TEMP)) {
                     sendTempNotification(getTempInfo(responses), member);

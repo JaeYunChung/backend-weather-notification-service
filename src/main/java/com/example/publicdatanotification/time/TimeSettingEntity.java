@@ -19,7 +19,9 @@ public class TimeSettingEntity {
     @JoinColumn(name = "memberId")
     private Member member;
 
+    @Column(name = "hour_value")
     private int hour;
+    @Column(name = "minute_value")
     private int minute;
 
     private boolean complete;
