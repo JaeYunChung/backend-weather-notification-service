@@ -13,5 +13,3 @@ spring:
       ddl-auto: create
     database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true
-server:
-  port: 5000

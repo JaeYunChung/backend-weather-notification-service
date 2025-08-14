@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.publicdatanotification.translate.MapInfoTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-08-14T09:11:17.046Z" hostname="jeongjaeyun-ui-MacBookAir.local" time="0.004">
+<testsuite name="com.example.publicdatanotification.translate.MapInfoTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-08-14T12:05:19.189Z" hostname="jeongjaeyun-ui-MacBookAir.local" time="0.004">
   <properties/>
   <testcase name="testTransSlatToGrid()" classname="com.example.publicdatanotification.translate.MapInfoTest" time="0.004"/>
-  <system-out><![CDATA[2025-08-14T18:11:17.042+09:00  INFO 31556 --- [public-data-notification] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.publicdatanotification.translate.MapInfoTest]: MapInfoTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2025-08-14T18:11:17.046+09:00  INFO 31556 --- [public-data-notification] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.publicdatanotification.PublicDataNotificationApplication for test class com.example.publicdatanotification.translate.MapInfoTest
+  <system-out><![CDATA[2025-08-14T21:05:19.186+09:00  INFO 46111 --- [public-data-notification] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.publicdatanotification.translate.MapInfoTest]: MapInfoTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-08-14T21:05:19.189+09:00  INFO 46111 --- [public-data-notification] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.publicdatanotification.PublicDataNotificationApplication for test class com.example.publicdatanotification.translate.MapInfoTest
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
