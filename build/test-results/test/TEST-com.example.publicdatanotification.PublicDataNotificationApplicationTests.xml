@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.publicdatanotification.PublicDataNotificationApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-08-14T07:32:38.722Z" hostname="jeongjaeyun-ui-MacBookAir.local" time="0.241">
+<testsuite name="com.example.publicdatanotification.PublicDataNotificationApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-08-14T09:11:15.081Z" hostname="jeongjaeyun-ui-MacBookAir.local" time="0.246">
   <properties/>
-  <testcase name="contextLoads()" classname="com.example.publicdatanotification.PublicDataNotificationApplicationTests" time="0.241"/>
-  <system-out><![CDATA[16:32:37.137 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.publicdatanotification.PublicDataNotificationApplicationTests]: PublicDataNotificationApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-16:32:37.173 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.publicdatanotification.PublicDataNotificationApplication for test class com.example.publicdatanotification.PublicDataNotificationApplicationTests
+  <testcase name="contextLoads()" classname="com.example.publicdatanotification.PublicDataNotificationApplicationTests" time="0.246"/>
+  <system-out><![CDATA[18:11:13.529 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.publicdatanotification.PublicDataNotificationApplicationTests]: PublicDataNotificationApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:11:13.563 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.publicdatanotification.PublicDataNotificationApplication for test class com.example.publicdatanotification.PublicDataNotificationApplicationTests
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -14,19 +14,19 @@
 
  :: Spring Boot ::                (v3.4.5)
 
-2025-08-14T16:32:37.293+09:00  INFO 18123 --- [public-data-notification] [    Test worker] p.PublicDataNotificationApplicationTests : Starting PublicDataNotificationApplicationTests using Java 21.0.8 with PID 18123 (started by jaeyunchung in /Users/jaeyunchung/IdeaProjects/backend-weather-notification-service)
-2025-08-14T16:32:37.294+09:00  INFO 18123 --- [public-data-notification] [    Test worker] p.PublicDataNotificationApplicationTests : No active profile set, falling back to 1 default profile: "default"
-2025-08-14T16:32:37.488+09:00  INFO 18123 --- [public-data-notification] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-08-14T16:32:37.511+09:00  INFO 18123 --- [public-data-notification] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 19 ms. Found 5 JPA repository interfaces.
-2025-08-14T16:32:37.640+09:00  INFO 18123 --- [public-data-notification] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-08-14T16:32:37.653+09:00  INFO 18123 --- [public-data-notification] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.13.Final
-2025-08-14T16:32:37.662+09:00  INFO 18123 --- [public-data-notification] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-08-14T16:32:37.737+09:00  INFO 18123 --- [public-data-notification] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-08-14T16:32:37.745+09:00  INFO 18123 --- [public-data-notification] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-08-14T16:32:37.798+09:00  INFO 18123 --- [public-data-notification] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:db user=SA
-2025-08-14T16:32:37.799+09:00  INFO 18123 --- [public-data-notification] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-08-14T16:32:37.806+09:00  WARN 18123 --- [public-data-notification] [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-08-14T16:32:37.814+09:00  INFO 18123 --- [public-data-notification] [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2025-08-14T18:11:13.681+09:00  INFO 31556 --- [public-data-notification] [    Test worker] p.PublicDataNotificationApplicationTests : Starting PublicDataNotificationApplicationTests using Java 21.0.8 with PID 31556 (started by jaeyunchung in /Users/jaeyunchung/IdeaProjects/backend-weather-notification-service)
+2025-08-14T18:11:13.681+09:00  INFO 31556 --- [public-data-notification] [    Test worker] p.PublicDataNotificationApplicationTests : No active profile set, falling back to 1 default profile: "default"
+2025-08-14T18:11:13.862+09:00  INFO 31556 --- [public-data-notification] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-14T18:11:13.882+09:00  INFO 31556 --- [public-data-notification] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 17 ms. Found 5 JPA repository interfaces.
+2025-08-14T18:11:14.010+09:00  INFO 31556 --- [public-data-notification] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-14T18:11:14.022+09:00  INFO 31556 --- [public-data-notification] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.13.Final
+2025-08-14T18:11:14.032+09:00  INFO 31556 --- [public-data-notification] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-08-14T18:11:14.108+09:00  INFO 31556 --- [public-data-notification] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-14T18:11:14.116+09:00  INFO 31556 --- [public-data-notification] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-08-14T18:11:14.168+09:00  INFO 31556 --- [public-data-notification] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:db user=SA
+2025-08-14T18:11:14.171+09:00  INFO 31556 --- [public-data-notification] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-08-14T18:11:14.178+09:00  WARN 31556 --- [public-data-notification] [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-08-14T18:11:14.184+09:00  INFO 31556 --- [public-data-notification] [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 2.3.232
@@ -34,12 +34,12 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-08-14T16:32:38.065+09:00  INFO 18123 --- [public-data-notification] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-08-14T16:32:38.083+09:00  INFO 18123 --- [public-data-notification] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-08-14T16:32:38.155+09:00  INFO 18123 --- [public-data-notification] [    Test worker] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-08-14T16:32:38.589+09:00  WARN 18123 --- [public-data-notification] [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-08-14T16:32:38.718+09:00  INFO 18123 --- [public-data-notification] [    Test worker] p.PublicDataNotificationApplicationTests : Started PublicDataNotificationApplicationTests in 1.508 seconds (process running for 1.846)
-2025-08-14T16:32:38.775+09:00  INFO 18123 --- [public-data-notification] [   scheduling-1] c.e.p.o.domain.temp.TempAndRainService   : 계속 실행중:
+2025-08-14T18:11:14.434+09:00  INFO 31556 --- [public-data-notification] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-14T18:11:14.451+09:00  INFO 31556 --- [public-data-notification] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-14T18:11:14.524+09:00  INFO 31556 --- [public-data-notification] [    Test worker] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-08-14T18:11:14.951+09:00  WARN 31556 --- [public-data-notification] [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-14T18:11:15.075+09:00  INFO 31556 --- [public-data-notification] [    Test worker] p.PublicDataNotificationApplicationTests : Started PublicDataNotificationApplicationTests in 1.473 seconds (process running for 1.811)
+2025-08-14T18:11:15.129+09:00  INFO 31556 --- [public-data-notification] [   scheduling-1] c.e.p.o.domain.temp.TempAndRainService   : 계속 실행중:
 ]]></system-out>
   <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build what is described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html#0.3
 WARNING: A Java agent has been loaded dynamically (/Users/jaeyunchung/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.15.11/a38b16385e867f59a641330f0362ebe742788ed8/byte-buddy-agent-1.15.11.jar)
