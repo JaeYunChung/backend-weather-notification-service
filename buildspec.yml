@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - echo Build started on `date`
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the JAR file...
+      - ./gradlew clean build -x test
+  post_build:
+    commands:
+      - echo Build completed on `date`
+
+artifacts:
+  files:
+    - build/libs/*.jar
+    - Procfile
+    - .ebextensions/**/*
+  name: backend-weather-notification-service
